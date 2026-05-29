@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>URL Shortener</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Encurtador de URL</h1>
+        {% if error %}
+            <p class="error">
+                {{ error }}
+            </p>
+        {% endif %}
+        <form method="POST" action="/shorten">
+
+            <input
+                type="text"
+                name="url"
+                placeholder="Cole sua URL aqui"
+                required
+            >
+
+            <button type="submit">
+                Encurtar
+            </button>
+
+        </form>
+        <!-- Deleta tudo do banco de dados-->
+        <form method="POST" action="/delete_all">
+            <button type="submit">
+                Deletar Todas as URLs
+            </button>
+        </form>
+        {% if short_url %}
+
+            <div class="result">
+
+                <p>URL encurtada:</p>
+
+                <a href="/{{ short_url.short_code }}">
+                    {{ request.host_url }}{{ short_url.short_code }}
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+</html>
